@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MichalZawadzkiLibrus.Models;
+using MichalZawadzkiLibrus.ViewModels;
 
 namespace MichalZawadzkiLibrus.Services
 {
@@ -16,5 +17,11 @@ namespace MichalZawadzkiLibrus.Services
         GroupSet GetGroupById(string groupId);
         TeacherSet GetTeacherByLogin(string login);
         StudentSet GetStudentByLogin(string login);
+        List<StudentSet> GetStudentsByGroupId(string groupId);
+        StudentListViewModel GetStudentListViewModelByGroupId(string groupId);
+        void RemoveStudentById(string studentId);
+        void AddStudent(StudentSet student);
+        StudentSet GetStudentById(string studentId);
+        void EditStudent(StudentSet student);
     }
 }

@@ -4,6 +4,10 @@
     ViewBag.Title = "List";
 }
 
+<div class="row">
+    @Html.ActionLink("Add group", "Add", "Group", null, new { @class = "waves-effect waves-light btn" })
+</div>
+
 <ul class="collapsible popout" data-collapsible="accordion">
     @foreach (var group in Model)
     {
@@ -39,7 +43,7 @@
                             @Html.ActionLink("Edit", "Edit", "Group", new { groupId = group.Id }, new { @class = "waves-effect waves-light btn right" })
                         </div>
                         <div class="row">
-                            @Html.ActionLink("Details", "Details", "Group", new { groupId = group.Id }, new { @class = "waves-effect waves-light btn right" })
+                            @Html.ActionLink("Manage students", "StudentList", "StudentManage", new { groupId = group.Id }, new { @class = "waves-effect waves-light btn right" })
                         </div>
                     </div>
                 </div>
@@ -48,6 +52,3 @@
     }
 </ul>
 
-<div class="row">
-    @Html.ActionLink("Add group", "Add", "Group", null, new { @class = "waves-effect waves-light btn right" })
-</div>

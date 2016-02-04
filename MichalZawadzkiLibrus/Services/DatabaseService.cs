@@ -57,5 +57,35 @@ namespace MichalZawadzkiLibrus.Services
             var student = context.StudentSet.FirstOrDefault(s => s.Login == login);
             return student;
         }
+
+        public List<StudentSet> GetStudentsByGroupId(int groupId)
+        {
+            var students = context.StudentSet.Where(s => s.Group_Id == groupId).ToList();
+            return students;
+        }
+        
+        public void RemoveStudent(StudentSet student)
+        {
+            context.StudentSet.Remove(student);
+            context.SaveChanges();
+        }
+
+        public void AddStudent(StudentSet student)
+        {
+            context.StudentSet.Add(student);
+            context.SaveChanges();
+        }
+
+        public void EditStudent(StudentSet student)
+        {
+            context.StudentSet.AddOrUpdate(student);
+            context.SaveChanges();
+        }
+
+        public StudentSet GetStudentById(int studentId)
+        {
+            var student = context.StudentSet.SingleOrDefault(s => s.Id == studentId);
+            return student;
+        }
     }
 }

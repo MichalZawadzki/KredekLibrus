@@ -1,0 +1,32 @@
+﻿@model MichalZawadzkiLibrus.Models.StudentSet
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "StudentManage", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    @Html.HiddenFor(model => model.Group_Id)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Login)
+    <div class="form-part row">
+        @Html.Label("*Password:") <br />
+        @Html.TextBoxFor(x => x.Password, new { @class = "input-field" })
+    </div>
+    <div class="form-part row">
+        @Html.Label("Name:") <br />
+        @Html.TextBoxFor(x => x.Name, new { @class = "input-field" })
+    </div>
+    <div class="form-part row">
+        @Html.Label("Surname:") <br />
+        @Html.TextBoxFor(x => x.Surname, new { @class = "input-field" })
+    </div>
+    <div class="form-part row">
+        @Html.Label("Email:") <br />
+        @Html.TextBoxFor(x => x.Email, new { @class = "input-field" })
+    </div>
+    <div class="row">
+        <button type="submit" class="waves-effect waves-light btn btn-large right">Edytuj</button>
+    </div>
+}

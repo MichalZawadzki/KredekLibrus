@@ -8,12 +8,12 @@ using MichalZawadzkiLibrus.Services;
 
 namespace MichalZawadzkiLibrus.Controllers
 {
-    public class TeacherController : Controller
+    public class StudentAccountController : Controller
     {
         private IApplicationService _applicationService;
         private IAuthenticationService _authenticationService;
 
-        public TeacherController()
+        public StudentAccountController()
         {
             _applicationService = new ApplicationService();
             _authenticationService = new AuthenticationService();
@@ -36,7 +36,7 @@ namespace MichalZawadzkiLibrus.Controllers
             {
                 return View(model);
             }
-            var user = _applicationService.GetTeacherByLogin(model.Login);
+            var user = _applicationService.GetStudentByLogin(model.Login);
             if (user == null)
             {
                 AddWrongEmailPasswordError();
@@ -45,7 +45,7 @@ namespace MichalZawadzkiLibrus.Controllers
 
             if (model.Password == user.Password)
             {
-                var identity = _authenticationService.CreateTeacherIdentity(user);
+                var identity = _authenticationService.CreateStudentIdentity(user);
                 _authenticationService.SignIn(identity, Request);
 
                 return RedirectToAction("Index", "Home");

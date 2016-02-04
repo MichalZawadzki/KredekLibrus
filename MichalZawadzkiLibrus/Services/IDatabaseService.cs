@@ -16,5 +16,10 @@ namespace MichalZawadzkiLibrus.Services
         GroupSet GetGroupById(int groupId);
         TeacherSet GetTeacherByLogin(string login);
         StudentSet GetStudentByLogin(string login);
+        List<StudentSet> GetStudentsByGroupId(int groupId);
+        void RemoveStudent(StudentSet student);
+        StudentSet GetStudentById(int studentId);
+        void AddStudent(StudentSet student);
+        void EditStudent(StudentSet student);
     }
 }

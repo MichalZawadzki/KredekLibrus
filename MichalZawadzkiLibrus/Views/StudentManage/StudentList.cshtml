@@ -1,0 +1,70 @@
+﻿@model MichalZawadzkiLibrus.ViewModels.StudentListViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+
+<div class="card-panel">
+    <div class="row">
+        Id: @Model.Group.Id
+    </div>
+    <div class="row">
+        Name: @Model.Group.Name
+    </div>
+    <div class="row">
+        Teacher: @Model.Group.TeacherSet.Name @Model.Group.TeacherSet.Surname
+    </div>
+    <div class="row">
+        Term: @Model.Group.Term
+    </div>
+    <div class="row">
+        Place: @Model.Group.Place
+    </div>
+</div>
+
+<div class="row">
+    @Html.ActionLink("Add student", "Add", "StudentManage", new { groupId = Model.Group.Id }, new { @class = "waves-effect waves-light btn" })
+</div>
+
+<ul class="collapsible popout" data-collapsible="accordion">
+    @foreach (var student in Model.Students)
+    {
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">perm_identity</i>@student.Name @student.Surname
+            </div>
+            <div class="collapsible-body">
+                <div class="row">
+                    <div class="col s9">
+                        <div class="row">
+                            Id: @student.Id
+                        </div>
+                        <div class="row">
+                            Login: @student.Login
+                        </div>
+                        <div class="row">
+                            Email: @student.Email
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="row">
+                            @using (Html.BeginForm("Remove", "StudentManage", FormMethod.Post))
+                            {
+                                @Html.Hidden("studentId", student.Id)
+                                @Html.Hidden("groupId", Model.Group.Id)
+                                <button type="submit" class="btn-block waves-effect waves-light btn right">Usuń</button>
+                            }
+                        </div>
+                        <div class="row">
+                            @Html.ActionLink("Details", "Profile", "StudentProfile", new {studentId = student.Id}, new {@class = "waves-effect waves-light btn right"})
+                        </div>
+                        <div class="row">
+                            @Html.ActionLink("Edit", "Edit", "StudentManage", new { studentId = student.Id }, new { @class = "waves-effect waves-light btn right" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+</ul>

@@ -19,7 +19,7 @@
                 {
                     if (User.IsInRole("Teacher"))
                     {
-                        using (Html.BeginForm("Logout", "Teacher", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                        using (Html.BeginForm("Logout", "TeacherAccount", FormMethod.Post, new { id = "logoutForm", @class = "" }))
                         {                              
                             <li>@Html.ActionLink("Group list", "List", "Group")</li>
                             <li><a>Zalogowany, @User.Identity.Name</a></li>
@@ -28,7 +28,7 @@
                     }
                     if (User.IsInRole("Student"))
                     {
-                        using (Html.BeginForm("Logout", "Student", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                        using (Html.BeginForm("Logout", "StudentAccount", FormMethod.Post, new { id = "logoutForm", @class = "" }))
                         {
                                 <li class="text-success"><a>Zalogowany, @User.Identity.Name</a></li>
                                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
@@ -41,7 +41,7 @@
                 {
                     if (User.IsInRole("Teacher"))
                     {
-                        using (Html.BeginForm("Logout", "Teacher", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                        using (Html.BeginForm("Logout", "TeacherAccount", FormMethod.Post, new { id = "logoutForm", @class = "" }))
                         {                              
                             <li>@Html.ActionLink("Group list", "List", "Group")</li>
                             <li><a>Zalogowany, @User.Identity.Name</a></li>
@@ -50,7 +50,7 @@
                     }
                     if (User.IsInRole("Student"))
                     {
-                        using (Html.BeginForm("Logout", "Student", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                        using (Html.BeginForm("Logout", "StudentAccount", FormMethod.Post, new { id = "logoutForm", @class = "" }))
                         {
                                 <li class="text-success"><a>Zalogowany, @User.Identity.Name</a></li>
                                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>

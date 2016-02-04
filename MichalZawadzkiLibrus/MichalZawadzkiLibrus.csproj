@@ -163,8 +163,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\StudentAccountController.cs" />
+    <Compile Include="Controllers\StudentManageController.cs" />
+    <Compile Include="Controllers\StudentProfileController.cs" />
+    <Compile Include="Controllers\TeacherAccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -220,6 +222,7 @@
     <Compile Include="Models\TeacherSet.cs">
       <DependentUpon>ModelLibrus.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\StudentListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -305,11 +308,15 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Teacher\Login.cshtml" />
+    <Content Include="Views\TeacherAccount\Login.cshtml" />
     <Content Include="Views\Group\List.cshtml" />
     <Content Include="Views\Group\Edit.cshtml" />
     <Content Include="Views\Group\Add.cshtml" />
-    <Content Include="Views\Student\Login.cshtml" />
+    <Content Include="Views\StudentAccount\Login.cshtml" />
+    <Content Include="Views\StudentManage\StudentList.cshtml" />
+    <Content Include="Views\StudentProfile\Profile.cshtml" />
+    <Content Include="Views\StudentManage\Add.cshtml" />
+    <Content Include="Views\StudentManage\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
