@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper container">
+            @Html.ActionLink("Kredek", "Index", "Home", null, new { @class = "brand-logo" })
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                @if (Request.IsAuthenticated)
+                {
+                    if (User.IsInRole("Teacher"))
+                    {
+                        using (Html.BeginForm("Logout", "Teacher", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                        {                              
+                            <li>@Html.ActionLink("Group list", "List", "Group")</li>
+                            <li><a>Zalogowany, @User.Identity.Name</a></li>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        }
+                    }
+                    if (User.IsInRole("Student"))
+                    {
+                        using (Html.BeginForm("Logout", "Student", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                        {
+                                <li class="text-success"><a>Zalogowany, @User.Identity.Name</a></li>
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        }
+                    }
+                }
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                @if (Request.IsAuthenticated)
+                {
+                    if (User.IsInRole("Teacher"))
+                    {
+                        using (Html.BeginForm("Logout", "Teacher", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                        {                              
+                            <li>@Html.ActionLink("Group list", "List", "Group")</li>
+                            <li><a>Zalogowany, @User.Identity.Name</a></li>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        }
+                    }
+                    if (User.IsInRole("Student"))
+                    {
+                        using (Html.BeginForm("Logout", "Student", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                        {
+                                <li class="text-success"><a>Zalogowany, @User.Identity.Name</a></li>
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        }
+                    }
+                }
+            </ul>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <br />
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Michał Zawadzki</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/materialize")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

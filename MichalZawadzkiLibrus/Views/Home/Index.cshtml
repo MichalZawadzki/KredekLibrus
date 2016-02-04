@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@if (!Request.IsAuthenticated)
+{
+    <div class="row">
+        @Html.ActionLink("Login as Teacher", "Login", "Teacher", null, new { @class = "waves-effect waves-light btn btn-large" })
+    </div>
+    <div class="row">
+        @Html.ActionLink("Login as Student", "Login", "Student", null, new { @class = "waves-effect waves-light btn btn-large" })
+    </div>
+}
+

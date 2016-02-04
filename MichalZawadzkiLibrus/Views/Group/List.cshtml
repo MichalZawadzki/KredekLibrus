@@ -1,0 +1,53 @@
+﻿@model List<MichalZawadzkiLibrus.Models.GroupSet>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<ul class="collapsible popout" data-collapsible="accordion">
+    @foreach (var group in Model)
+    {
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">subject</i>@group.Name
+            </div>
+            <div class="collapsible-body">
+                <div class="row">
+                    <div class="col s9">
+                        <div class="row">
+                            Id: @group.Id
+                        </div>
+                        <div class="row">
+                            Teacher: @group.TeacherSet.Name @group.TeacherSet.Surname
+                        </div>
+                        <div class="row">
+                            Term: @group.Term
+                        </div>
+                        <div class="row">
+                            Place: @group.Place
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="row">
+                            @using (Html.BeginForm("Remove", "Group", FormMethod.Post))
+                            {
+                                @Html.Hidden("groupId", group.Id)
+                                <button type="submit" class="btn-block waves-effect waves-light btn right">Usuń</button>
+                            }
+                        </div>
+                        <div class="row">
+                            @Html.ActionLink("Edit", "Edit", "Group", new { groupId = group.Id }, new { @class = "waves-effect waves-light btn right" })
+                        </div>
+                        <div class="row">
+                            @Html.ActionLink("Details", "Details", "Group", new { groupId = group.Id }, new { @class = "waves-effect waves-light btn right" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+
+<div class="row">
+    @Html.ActionLink("Add group", "Add", "Group", null, new { @class = "waves-effect waves-light btn right" })
+</div>

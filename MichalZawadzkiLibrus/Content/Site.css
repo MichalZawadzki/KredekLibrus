@@ -1,0 +1,17 @@
+﻿nav {
+    position: relative;
+    top: 30px;
+}
+
+.container.body-content {
+    position: relative;
+    top: 50px;
+}
+
+.collapsible-body {
+    padding: 10px 35px;
+}
+
+.container .row {
+    margin-bottom: 5px;
+}

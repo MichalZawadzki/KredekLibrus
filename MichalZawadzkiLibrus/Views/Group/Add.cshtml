@@ -1,0 +1,29 @@
+﻿@model MichalZawadzkiLibrus.Models.GroupSet
+
+@{
+    ViewBag.Title = "Add";
+}
+
+@using (Html.BeginForm("Add", "Group", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.TeacherSet)
+    <div class="form-part row">
+        @Html.Label("Name:") <br />
+        @Html.TextBoxFor(x => x.Name, new { @class = "input-field" })
+    </div>
+    <div class="form-part row">
+        @Html.Label("Place:") <br />
+        @Html.TextBoxFor(x => x.Place, new { @class = "input-field" })
+    </div>
+    <div class="form-part row">
+        @Html.Label("Term:") <br />
+        @Html.TextBoxFor(x => x.Term, new { @class = "input-field" })
+    </div>
+
+    <div class="row">
+        <button type="submit" class="waves-effect waves-light btn btn-large right">Dodaj</button>
+    </div>
+}
+

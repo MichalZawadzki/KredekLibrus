@@ -1,0 +1,594 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EvaluationSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GroupSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Term" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Place" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Teacher_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="LessonSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Topic" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Group_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="MarkSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Score" Type="float" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Task_Id" Type="int" />
+          <Property Name="Student_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="PresenceSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Present" Type="bit" Nullable="false" />
+          <Property Name="Activity" Type="int" />
+          <Property Name="Student_Id" Type="int" />
+          <Property Name="Lesson_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Group_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TaskSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Lesson_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="TeacherSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_GroupStudent">
+          <End Role="GroupSet" Type="Self.GroupSet" Multiplicity="0..1" />
+          <End Role="StudentSet" Type="Self.StudentSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentSet">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonGroup">
+          <End Role="GroupSet" Type="Self.GroupSet" Multiplicity="0..1" />
+          <End Role="LessonSet" Type="Self.LessonSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonSet">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonPresence">
+          <End Role="LessonSet" Type="Self.LessonSet" Multiplicity="0..1" />
+          <End Role="PresenceSet" Type="Self.PresenceSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PresenceSet">
+              <PropertyRef Name="Lesson_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonTask">
+          <End Role="LessonSet" Type="Self.LessonSet" Multiplicity="0..1" />
+          <End Role="TaskSet" Type="Self.TaskSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaskSet">
+              <PropertyRef Name="Lesson_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentMark">
+          <End Role="StudentSet" Type="Self.StudentSet" Multiplicity="0..1" />
+          <End Role="MarkSet" Type="Self.MarkSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MarkSet">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentPresence">
+          <End Role="StudentSet" Type="Self.StudentSet" Multiplicity="0..1" />
+          <End Role="PresenceSet" Type="Self.PresenceSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PresenceSet">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskMark">
+          <End Role="TaskSet" Type="Self.TaskSet" Multiplicity="0..1" />
+          <End Role="MarkSet" Type="Self.MarkSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MarkSet">
+              <PropertyRef Name="Task_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherGroup">
+          <End Role="TeacherSet" Type="Self.TeacherSet" Multiplicity="0..1" />
+          <End Role="GroupSet" Type="Self.GroupSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TeacherSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupSet">
+              <PropertyRef Name="Teacher_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EvaluationSystemModelStoreContainer">
+          <EntitySet Name="GroupSet" EntityType="Self.GroupSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LessonSet" EntityType="Self.LessonSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarkSet" EntityType="Self.MarkSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PresenceSet" EntityType="Self.PresenceSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentSet" EntityType="Self.StudentSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskSet" EntityType="Self.TaskSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeacherSet" EntityType="Self.TeacherSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_GroupStudent" Association="Self.FK_GroupStudent">
+            <End Role="GroupSet" EntitySet="GroupSet" />
+            <End Role="StudentSet" EntitySet="StudentSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonGroup" Association="Self.FK_LessonGroup">
+            <End Role="GroupSet" EntitySet="GroupSet" />
+            <End Role="LessonSet" EntitySet="LessonSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonPresence" Association="Self.FK_LessonPresence">
+            <End Role="LessonSet" EntitySet="LessonSet" />
+            <End Role="PresenceSet" EntitySet="PresenceSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonTask" Association="Self.FK_LessonTask">
+            <End Role="LessonSet" EntitySet="LessonSet" />
+            <End Role="TaskSet" EntitySet="TaskSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentMark" Association="Self.FK_StudentMark">
+            <End Role="StudentSet" EntitySet="StudentSet" />
+            <End Role="MarkSet" EntitySet="MarkSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentPresence" Association="Self.FK_StudentPresence">
+            <End Role="StudentSet" EntitySet="StudentSet" />
+            <End Role="PresenceSet" EntitySet="PresenceSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskMark" Association="Self.FK_TaskMark">
+            <End Role="TaskSet" EntitySet="TaskSet" />
+            <End Role="MarkSet" EntitySet="MarkSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherGroup" Association="Self.FK_TeacherGroup">
+            <End Role="TeacherSet" EntitySet="TeacherSet" />
+            <End Role="GroupSet" EntitySet="GroupSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EvaluationSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GroupSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Term" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Teacher_Id" Type="Int32" />
+          <NavigationProperty Name="StudentSet" Relationship="Self.FK_GroupStudent" FromRole="GroupSet" ToRole="StudentSet" />
+          <NavigationProperty Name="LessonSet" Relationship="Self.FK_LessonGroup" FromRole="GroupSet" ToRole="LessonSet" />
+          <NavigationProperty Name="TeacherSet" Relationship="Self.FK_TeacherGroup" FromRole="GroupSet" ToRole="TeacherSet" />
+        </EntityType>
+        <EntityType Name="LessonSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Topic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Group_Id" Type="Int32" />
+          <NavigationProperty Name="GroupSet" Relationship="Self.FK_LessonGroup" FromRole="LessonSet" ToRole="GroupSet" />
+          <NavigationProperty Name="PresenceSet" Relationship="Self.FK_LessonPresence" FromRole="LessonSet" ToRole="PresenceSet" />
+          <NavigationProperty Name="TaskSet" Relationship="Self.FK_LessonTask" FromRole="LessonSet" ToRole="TaskSet" />
+        </EntityType>
+        <EntityType Name="MarkSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Score" Type="Double" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Task_Id" Type="Int32" />
+          <Property Name="Student_Id" Type="Int32" />
+          <NavigationProperty Name="StudentSet" Relationship="Self.FK_StudentMark" FromRole="MarkSet" ToRole="StudentSet" />
+          <NavigationProperty Name="TaskSet" Relationship="Self.FK_TaskMark" FromRole="MarkSet" ToRole="TaskSet" />
+        </EntityType>
+        <EntityType Name="PresenceSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Present" Type="Boolean" Nullable="false" />
+          <Property Name="Activity" Type="Int32" />
+          <Property Name="Student_Id" Type="Int32" />
+          <Property Name="Lesson_Id" Type="Int32" />
+          <NavigationProperty Name="LessonSet" Relationship="Self.FK_LessonPresence" FromRole="PresenceSet" ToRole="LessonSet" />
+          <NavigationProperty Name="StudentSet" Relationship="Self.FK_StudentPresence" FromRole="PresenceSet" ToRole="StudentSet" />
+        </EntityType>
+        <EntityType Name="StudentSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Group_Id" Type="Int32" />
+          <NavigationProperty Name="GroupSet" Relationship="Self.FK_GroupStudent" FromRole="StudentSet" ToRole="GroupSet" />
+          <NavigationProperty Name="MarkSet" Relationship="Self.FK_StudentMark" FromRole="StudentSet" ToRole="MarkSet" />
+          <NavigationProperty Name="PresenceSet" Relationship="Self.FK_StudentPresence" FromRole="StudentSet" ToRole="PresenceSet" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TaskSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Lesson_Id" Type="Int32" />
+          <NavigationProperty Name="LessonSet" Relationship="Self.FK_LessonTask" FromRole="TaskSet" ToRole="LessonSet" />
+          <NavigationProperty Name="MarkSet" Relationship="Self.FK_TaskMark" FromRole="TaskSet" ToRole="MarkSet" />
+        </EntityType>
+        <EntityType Name="TeacherSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GroupSet" Relationship="Self.FK_TeacherGroup" FromRole="TeacherSet" ToRole="GroupSet" />
+        </EntityType>
+        <Association Name="FK_GroupStudent">
+          <End Role="GroupSet" Type="Self.GroupSet" Multiplicity="0..1" />
+          <End Role="StudentSet" Type="Self.StudentSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentSet">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonGroup">
+          <End Role="GroupSet" Type="Self.GroupSet" Multiplicity="0..1" />
+          <End Role="LessonSet" Type="Self.LessonSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonSet">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherGroup">
+          <End Role="TeacherSet" Type="Self.TeacherSet" Multiplicity="0..1" />
+          <End Role="GroupSet" Type="Self.GroupSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TeacherSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupSet">
+              <PropertyRef Name="Teacher_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonPresence">
+          <End Role="LessonSet" Type="Self.LessonSet" Multiplicity="0..1" />
+          <End Role="PresenceSet" Type="Self.PresenceSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PresenceSet">
+              <PropertyRef Name="Lesson_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonTask">
+          <End Role="LessonSet" Type="Self.LessonSet" Multiplicity="0..1" />
+          <End Role="TaskSet" Type="Self.TaskSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaskSet">
+              <PropertyRef Name="Lesson_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentMark">
+          <End Role="StudentSet" Type="Self.StudentSet" Multiplicity="0..1" />
+          <End Role="MarkSet" Type="Self.MarkSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MarkSet">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskMark">
+          <End Role="TaskSet" Type="Self.TaskSet" Multiplicity="0..1" />
+          <End Role="MarkSet" Type="Self.MarkSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MarkSet">
+              <PropertyRef Name="Task_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentPresence">
+          <End Role="StudentSet" Type="Self.StudentSet" Multiplicity="0..1" />
+          <End Role="PresenceSet" Type="Self.PresenceSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PresenceSet">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EvaluationSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GroupSet" EntityType="Self.GroupSet" />
+          <EntitySet Name="LessonSet" EntityType="Self.LessonSet" />
+          <EntitySet Name="MarkSet" EntityType="Self.MarkSet" />
+          <EntitySet Name="PresenceSet" EntityType="Self.PresenceSet" />
+          <EntitySet Name="StudentSet" EntityType="Self.StudentSet" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TaskSet" EntityType="Self.TaskSet" />
+          <EntitySet Name="TeacherSet" EntityType="Self.TeacherSet" />
+          <AssociationSet Name="FK_GroupStudent" Association="Self.FK_GroupStudent">
+            <End Role="GroupSet" EntitySet="GroupSet" />
+            <End Role="StudentSet" EntitySet="StudentSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonGroup" Association="Self.FK_LessonGroup">
+            <End Role="GroupSet" EntitySet="GroupSet" />
+            <End Role="LessonSet" EntitySet="LessonSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherGroup" Association="Self.FK_TeacherGroup">
+            <End Role="TeacherSet" EntitySet="TeacherSet" />
+            <End Role="GroupSet" EntitySet="GroupSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonPresence" Association="Self.FK_LessonPresence">
+            <End Role="LessonSet" EntitySet="LessonSet" />
+            <End Role="PresenceSet" EntitySet="PresenceSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonTask" Association="Self.FK_LessonTask">
+            <End Role="LessonSet" EntitySet="LessonSet" />
+            <End Role="TaskSet" EntitySet="TaskSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentMark" Association="Self.FK_StudentMark">
+            <End Role="StudentSet" EntitySet="StudentSet" />
+            <End Role="MarkSet" EntitySet="MarkSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskMark" Association="Self.FK_TaskMark">
+            <End Role="TaskSet" EntitySet="TaskSet" />
+            <End Role="MarkSet" EntitySet="MarkSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentPresence" Association="Self.FK_StudentPresence">
+            <End Role="StudentSet" EntitySet="StudentSet" />
+            <End Role="PresenceSet" EntitySet="PresenceSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EvaluationSystemModelStoreContainer" CdmEntityContainer="EvaluationSystemEntities">
+          <EntitySetMapping Name="GroupSet">
+            <EntityTypeMapping TypeName="EvaluationSystemModel.GroupSet">
+              <MappingFragment StoreEntitySet="GroupSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Teacher_Id" ColumnName="Teacher_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LessonSet">
+            <EntityTypeMapping TypeName="EvaluationSystemModel.LessonSet">
+              <MappingFragment StoreEntitySet="LessonSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Topic" ColumnName="Topic" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarkSet">
+            <EntityTypeMapping TypeName="EvaluationSystemModel.MarkSet">
+              <MappingFragment StoreEntitySet="MarkSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Task_Id" ColumnName="Task_Id" />
+                <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PresenceSet">
+            <EntityTypeMapping TypeName="EvaluationSystemModel.PresenceSet">
+              <MappingFragment StoreEntitySet="PresenceSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Present" ColumnName="Present" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
+                <ScalarProperty Name="Lesson_Id" ColumnName="Lesson_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentSet">
+            <EntityTypeMapping TypeName="EvaluationSystemModel.StudentSet">
+              <MappingFragment StoreEntitySet="StudentSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="EvaluationSystemModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskSet">
+            <EntityTypeMapping TypeName="EvaluationSystemModel.TaskSet">
+              <MappingFragment StoreEntitySet="TaskSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Lesson_Id" ColumnName="Lesson_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeacherSet">
+            <EntityTypeMapping TypeName="EvaluationSystemModel.TeacherSet">
+              <MappingFragment StoreEntitySet="TeacherSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

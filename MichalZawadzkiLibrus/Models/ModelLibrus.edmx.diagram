@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d49ba904e3e2426a89737ce1c87abf92" Name="Diagram1">
+        <EntityTypeShape EntityType="EvaluationSystemModel.GroupSet" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvaluationSystemModel.LessonSet" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvaluationSystemModel.MarkSet" Width="1.5" PointX="9.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvaluationSystemModel.PresenceSet" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvaluationSystemModel.StudentSet" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvaluationSystemModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvaluationSystemModel.TaskSet" Width="1.5" PointX="7.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EvaluationSystemModel.TeacherSet" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="EvaluationSystemModel.FK_GroupStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="EvaluationSystemModel.FK_LessonGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="EvaluationSystemModel.FK_TeacherGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="EvaluationSystemModel.FK_LessonPresence" ManuallyRouted="false" />
+        <AssociationConnector Association="EvaluationSystemModel.FK_LessonTask" ManuallyRouted="false" />
+        <AssociationConnector Association="EvaluationSystemModel.FK_StudentMark" ManuallyRouted="false" />
+        <AssociationConnector Association="EvaluationSystemModel.FK_TaskMark" ManuallyRouted="false" />
+        <AssociationConnector Association="EvaluationSystemModel.FK_StudentPresence" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
