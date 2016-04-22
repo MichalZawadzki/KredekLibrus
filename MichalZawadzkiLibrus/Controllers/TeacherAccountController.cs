@@ -10,7 +10,7 @@ namespace MichalZawadzkiLibrus.Controllers
 {
     public class TeacherAccountController : Controller
     {
-        private IApplicationService _applicationService;
+        private readonly IApplicationService _applicationService;
         private IAuthenticationService _authenticationService;
 
         public TeacherAccountController()

@@ -163,6 +163,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LessonController.cs" />
     <Compile Include="Controllers\StudentAccountController.cs" />
     <Compile Include="Controllers\StudentManageController.cs" />
     <Compile Include="Controllers\StudentProfileController.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="Models\TeacherSet.cs">
       <DependentUpon>ModelLibrus.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\LessonGridViewModel.cs" />
     <Compile Include="ViewModels\StudentListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -320,6 +322,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Lesson\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
