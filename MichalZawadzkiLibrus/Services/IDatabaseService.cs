@@ -7,7 +7,7 @@ using MichalZawadzkiLibrus.Models;
 
 namespace MichalZawadzkiLibrus.Services
 {
-    interface IDatabaseService
+    public interface IDatabaseService
     {
         void AddGroup(GroupSet group);
         void EditGroup(GroupSet group);

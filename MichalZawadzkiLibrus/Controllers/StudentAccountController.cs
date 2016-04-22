@@ -10,14 +10,15 @@ namespace MichalZawadzkiLibrus.Controllers
 {
     public class StudentAccountController : Controller
     {
-        private IApplicationService _applicationService;
-        private IAuthenticationService _authenticationService;
+        private readonly IApplicationService _applicationService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public StudentAccountController()
+        public StudentAccountController(IApplicationService applicationService, IAuthenticationService authenticationService)
         {
-            _applicationService = new ApplicationService();
-            _authenticationService = new AuthenticationService();
+            _applicationService = applicationService;
+            _authenticationService = authenticationService;
         }
+
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {

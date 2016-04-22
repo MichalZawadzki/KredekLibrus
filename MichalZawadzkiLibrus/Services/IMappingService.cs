@@ -8,7 +8,7 @@ using MichalZawadzkiLibrus.ViewModels;
 
 namespace MichalZawadzkiLibrus.Services
 {
-    interface IMappingService
+    public interface IMappingService
     {
         StudentListViewModel MapToStudentListViewModel(GroupSet group, List<StudentSet> students);
     }

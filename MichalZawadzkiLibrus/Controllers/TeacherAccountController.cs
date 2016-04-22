@@ -11,13 +11,14 @@ namespace MichalZawadzkiLibrus.Controllers
     public class TeacherAccountController : Controller
     {
         private readonly IApplicationService _applicationService;
-        private IAuthenticationService _authenticationService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public TeacherAccountController()
+        public TeacherAccountController(IApplicationService applicationService, IAuthenticationService authenticationService)
         {
-            _applicationService = new ApplicationService();
-            _authenticationService = new AuthenticationService();
+            _applicationService = applicationService;
+            _authenticationService = authenticationService;
         }
+
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {

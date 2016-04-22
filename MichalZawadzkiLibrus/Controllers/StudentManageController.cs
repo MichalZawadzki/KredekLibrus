@@ -12,9 +12,9 @@ namespace MichalZawadzkiLibrus.Controllers
     {
         private IApplicationService _applicationService;
 
-        public StudentManageController()
+        public StudentManageController(IApplicationService applicationService)
         {
-            _applicationService = new ApplicationService(); 
+            _applicationService = applicationService; 
         }
 
         [HttpGet]

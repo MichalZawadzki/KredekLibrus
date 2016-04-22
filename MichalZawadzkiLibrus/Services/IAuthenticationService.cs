@@ -10,7 +10,7 @@ using Microsoft.Owin.Security;
 
 namespace MichalZawadzkiLibrus.Services
 {
-    interface IAuthenticationService
+    public interface IAuthenticationService
     {
         bool IsAuthenticated(HttpRequestBase request);
         IAuthenticationManager GetAuthManager(HttpRequestBase request);

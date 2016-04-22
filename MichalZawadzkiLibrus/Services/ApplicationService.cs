@@ -10,13 +10,13 @@ namespace MichalZawadzkiLibrus.Services
 {
     public class ApplicationService : IApplicationService
     {
-        private IMappingService _mappingService;
-        private IDatabaseService _databaseService;
+        private readonly IMappingService _mappingService;
+        private readonly IDatabaseService _databaseService;
 
-        public ApplicationService()
+        public ApplicationService(IMappingService mappingService, IDatabaseService databaseService)
         {
-            _mappingService = new MappingService();
-            _databaseService = new DatabaseService();
+            _mappingService = mappingService;
+            _databaseService = databaseService;
         }
 
         public void AddGroup(GroupSet group, string teacherId)

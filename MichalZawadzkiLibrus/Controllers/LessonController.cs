@@ -11,9 +11,9 @@ namespace MichalZawadzkiLibrus.Controllers
     {
         private IApplicationService _applicationService;
 
-        public LessonController()
+        public LessonController(IApplicationService applicationService)
         {
-            _applicationService = new ApplicationService(); 
+            _applicationService = applicationService; 
         }
 
         public ActionResult LessonGrid()

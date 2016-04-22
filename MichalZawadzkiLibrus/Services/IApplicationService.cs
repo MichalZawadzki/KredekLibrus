@@ -8,7 +8,7 @@ using MichalZawadzkiLibrus.ViewModels;
 
 namespace MichalZawadzkiLibrus.Services
 {
-    interface IApplicationService
+    public interface IApplicationService
     {
         void AddGroup(GroupSet group, string teacherId);
         void EditGroup(GroupSet group, string teacherId);
